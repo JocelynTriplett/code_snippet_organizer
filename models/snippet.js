@@ -36,4 +36,6 @@ const snippetSchema = new mongoose.Schema({
 
 const Snippet = mongoose.model('Snippet', snippetSchema);
 
-module.exports = Snippet;
+module.exports = {
+    Snippet: Snippet
+};

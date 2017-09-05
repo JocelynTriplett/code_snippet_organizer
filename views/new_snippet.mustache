@@ -15,7 +15,7 @@
     <input type="text" id="title" name="title" />
 
     <label for="language">Language: </label>
-    <select name="language">
+    <select name="language" id="language">
     <option value="Javascript">Javascript</option>
     <option value="Java">Java</option>
     <option value="Ruby">Ruby</option>
@@ -26,22 +26,23 @@
   </select>
 
     <label for="user">User: </label>
-    <input type="text" name="user" />
+    <input type="text" name="user" id="user"/>
 
-    <label for="code">Code: </label>
-    <input type="textarea" name="code" />
+    <label for="body">Code: </label>
+    <input type="textarea" name="body" id="body" />
 
     <label for="date_created">Date Created: </label>
-    <input type="timestamp" name="date_created" />
+    <input type="timestamp" name="date_created" id="date_created" />
 
     <label for="date_modified">Date Modified: </label>
-    <input type="timestamp" name="date_modified" />
+    <input type="timestamp" name="date_modified" id="date_modified"/>
 
     <label for="notes">Notes: </label>
-    <input type="textarea" name="notes" />
+    <input type="textarea" name="notes" id="notes"/>
 
     <label for="tags">Tags: </label>
-    <input type="text" name="tags" />
+    <input type="text" name="tags" id="tags"/>
+    <input type="submit" value="submit" name="submit" />
   </form>
 </body>
 

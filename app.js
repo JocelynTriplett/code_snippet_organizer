@@ -9,31 +9,33 @@
 // allow you to look at an individual snippet
 // have an API to allow for creating and viewing of snippets as listed above
 
-const fs = require('fs'),
-    path = require('path'),
-    express = require('express'),
-    mustacheExpress = require('mustache-express'),
-    passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy,
-    session = require('express-session'),
-    bodyParser = require('body-parser'),
-    user_model = require("./models/user"),
-    snippet_model = require("./models/snippet")
-    flash = require('express-flash-messages'),
-    mongoose = require('mongoose'),
-    expressValidator = require('express-validator'),
-    User = user_model.User;
-    Snippet = snippet_model.Snippet;
+const fs = require('fs');
+const path = require('path');
+const express = require('express');
+const mustacheExpress = require('mustache-express');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const user_model = require("./models/user");
+const snippet_model = require("./models/snippet");
+const flash = require('express-flash-messages');
+const mongoose = require('mongoose');
+const expressValidator = require('express-validator');
+const User = user_model.User;
+const Snippet = snippet_model.Snippet;
 
 const app = express();
 
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://127.0.0.1:27017/snippetdb',{useMongoClient: true});
+mongoose.Promise = require('bluebird');
 
 app.engine('mustache', mustacheExpress());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'mustache')
 app.set('layout', 'layout');
 app.use('/static', express.static('static'));
+//app.use(bodyParser.urlencoded({ extended: true }));
 
 
 passport.use(new LocalStrategy(
@@ -97,10 +99,12 @@ app.get('/new/', function (req, res) {
 });
 
 app.post('/new/', function (req, res) {
+  // console.log("Snippet: "+Snippet);
+  // console.log("req.body: "+req.body);
   Snippet.create(req.body)
   .then(function (snippet) {
     res.redirect('/');
-  })
+})
 
   .catch(function (error) {
     let errorMsg;
@@ -110,13 +114,15 @@ app.post('/new/', function (req, res) {
     // } else {
       errorMsg = "You have encountered an unknown error."
     // }
-    res.render('/', {errorMsg: errorMsg});
+    res.render('index', {errorMsg: errorMsg});
   })
 });
 
 app.get('/', function(req, res) {
-    res.render("index");
+  Snippet.find().then(function (snippet) {
+  res.render('index', {snippet: snippet});
 })
+});
 
 app.get('/login/', function(req, res) {
     res.render("login", {
@@ -199,3 +205,5 @@ app.get('/secret/', requireLogin, function (req, res) {
 app.listen(3000, function() {
     console.log('Express running on http://localhost:3000/.')
 });
+
+module.exports = app;
