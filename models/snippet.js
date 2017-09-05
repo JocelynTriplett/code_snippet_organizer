@@ -21,11 +21,11 @@ const snippetSchema = new mongoose.Schema({
   date_created: {
     type: String,
     required: true
-  }
+  },
   date_modified: {
     type: String,
     required: true
-  }
+  },
   notes: {
     type: [String]
   },

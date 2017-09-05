@@ -17,11 +17,13 @@ const fs = require('fs'),
     LocalStrategy = require('passport-local').Strategy,
     session = require('express-session'),
     bodyParser = require('body-parser'),
-    models = require("./models"),
+    user_model = require("./models/user"),
+    snippet_model = require("./models/snippet")
     flash = require('express-flash-messages'),
     mongoose = require('mongoose'),
     expressValidator = require('express-validator'),
-    User = models.User;
+    User = user_model.User;
+    Snippet = snippet_model.Snippet;
 
 const app = express();
 
@@ -32,6 +34,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'mustache')
 app.set('layout', 'layout');
 app.use('/static', express.static('static'));
+
 
 passport.use(new LocalStrategy(
     function(username, password, done) {
@@ -88,6 +91,28 @@ app.use(function (req, res, next) {
   res.locals.user = req.user;
   next();
 })
+
+app.get('/new/', function (req, res) {
+  res.render('new_snippet');
+});
+
+app.post('/new/', function (req, res) {
+  Snippet.create(req.body)
+  .then(function (snippet) {
+    res.redirect('/');
+  })
+
+  .catch(function (error) {
+    let errorMsg;
+    // if (error.code === DUPLICATE_RECORD_ERROR) {
+    //   // make message about duplicate
+    //   errorMsg = `The book name "${req.body.title}" has already been used.`
+    // } else {
+      errorMsg = "You have encountered an unknown error."
+    // }
+    res.render('/', {errorMsg: errorMsg});
+  })
+});
 
 app.get('/', function(req, res) {
     res.render("index");

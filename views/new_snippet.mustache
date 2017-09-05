@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>New Snippet</title>
+    <meta name="description" content="DESCRIPTION">
+   <link rel="stylesheet" type="text/css" href="/static/css/new_snippet.css">
+</head>
+
+<body>
+  <form action="/new/" method="POST">
+
+    <label for="title">Title: </label>
+    <input type="text" id="title" name="title" />
+
+    <label for="language">Language: </label>
+    <select name="language">
+    <option value="Javascript">Javascript</option>
+    <option value="Java">Java</option>
+    <option value="Ruby">Ruby</option>
+    <option value="HTML">HTML</option>
+    <option value="JSON">JSON</option>
+    <option value="CSS">CSS</option>
+    <option value="text">text</option>
+  </select>
+
+    <label for="user">User: </label>
+    <input type="text" name="user" />
+
+    <label for="code">Code: </label>
+    <input type="textarea" name="code" />
+
+    <label for="date_created">Date Created: </label>
+    <input type="timestamp" name="date_created" />
+
+    <label for="date_modified">Date Modified: </label>
+    <input type="timestamp" name="date_modified" />
+
+    <label for="notes">Notes: </label>
+    <input type="textarea" name="notes" />
+
+    <label for="tags">Tags: </label>
+    <input type="text" name="tags" />
+  </form>
+</body>
+
+</html>
