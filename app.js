@@ -118,6 +118,12 @@ app.post('/new/', function (req, res) {
   })
 });
 
+app.get('/:user/', function (req, res) {
+  Snippet.find({user: req.params.user}).then(function (snippet) {
+    res.render("user", {snippet: snippet, user: req.params.user});
+  })
+})
+
 app.get('/', function(req, res) {
   Snippet.find().then(function (snippet) {
   res.render('index', {snippet: snippet});
