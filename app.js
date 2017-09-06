@@ -101,8 +101,8 @@ app.get('/new/', function (req, res) {
 });
 
 app.post('/new/', function (req, res) {
-  // console.log("Snippet: "+Snippet);
-  // console.log("req.body: "+req.body);
+  //console.log(req.body.tags)
+
   Snippet.create(
     {title: req.body.title,
     user: res.locals.user.username,
@@ -115,7 +115,10 @@ app.post('/new/', function (req, res) {
     format: 'plain',              // Plain text or html
     random: Math.random,         // A PRNG function. Uses Math.random by default
     })+"</code>",
-    date_created: moment()}
+    date_created: moment(),
+    notes: req.body.notes,
+    tags: req.body.tags.split(',')
+    }
   )
 
   .then(function (snippet) {
