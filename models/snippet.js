@@ -11,20 +11,17 @@ const snippetSchema = new mongoose.Schema({
     required: true
   },
   user: {
-    type: String,
-    required: true
+    type: String
   },
   body: {
     type: String,
     required: true
   },
   date_created: {
-    type: String,
-    required: true
+    type: String
   },
   date_modified: {
-    type: String,
-    required: true
+    type: String
   },
   notes: {
     type: [String]

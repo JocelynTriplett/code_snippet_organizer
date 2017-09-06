@@ -79,7 +79,7 @@ app.use(session({
         instance: mongoose, // optional
         host: 'localhost', // optional
         port: 27017, // optional
-        db: 'test', // optional
+        db: 'snippetsdb', // optional
         collection: 'sessions', // optional
         expire: 86400 // optional
     })
@@ -102,8 +102,22 @@ app.post('/new/', function (req, res) {
   // console.log("Snippet: "+Snippet);
   // console.log("req.body: "+req.body);
   Snippet.create(req.body)
+
   .then(function (snippet) {
-    res.redirect('/');
+
+    console.log("snippet: "+snippet)
+    console.log("Snippet: "+Snippet)
+    snippet.user = res.locals.user.username;
+    snippet.save((err, todo) => {
+            if (err) {
+                res.status(500).send(err)
+            }
+            res.status(200).send(snippet);
+        });
+    console.log("snippet: "+snippet)
+    console.log("snippet.user: "+snippet.user);
+    //snippet.user = res.locals.user.username;
+    //res.redirect('/');
 })
 
   .catch(function (error) {
