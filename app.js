@@ -101,23 +101,26 @@ app.get('/new/', function (req, res) {
 app.post('/new/', function (req, res) {
   // console.log("Snippet: "+Snippet);
   // console.log("req.body: "+req.body);
-  Snippet.create(req.body)
+  Snippet.create(
+    {title: req.body.title,
+    user: res.locals.user.username,
+    language: req.body.language,
+    body: req.body.body,}
+        )
 
   .then(function (snippet) {
 
-    console.log("snippet: "+snippet)
-    console.log("Snippet: "+Snippet)
-    snippet.user = res.locals.user.username;
-    snippet.save((err, todo) => {
-            if (err) {
-                res.status(500).send(err)
-            }
-            res.status(200).send(snippet);
-        });
-    console.log("snippet: "+snippet)
-    console.log("snippet.user: "+snippet.user);
-    //snippet.user = res.locals.user.username;
-    //res.redirect('/');
+    // snippet.user = res.locals.user.username;
+    // snippet.save((err, todo) => {
+    //         if (err) {
+    //             res.status(500).send(err)
+    //         }
+    //         res.status(200).send(snippet);
+    //     });
+    // console.log("snippet: "+snippet)
+    // console.log("snippet.user: "+snippet.user);
+
+    res.redirect('/');
 })
 
   .catch(function (error) {
