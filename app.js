@@ -214,6 +214,12 @@ app.get('/language/:language/', function (req, res) {
   })
 })
 
+app.get('/tag/:tag/', function (req, res) {
+  Snippet.find({tags: req.params.tag}).then(function (snippet) {
+    res.render("tag", {snippet: snippet, tag: req.params.tag});
+  })
+})
+
 app.get('/', function(req, res) {
   Snippet.find().then(function (snippet) {
   res.render('index', {snippet: snippet});
