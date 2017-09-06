@@ -107,14 +107,14 @@ app.post('/new/', function (req, res) {
     {title: req.body.title,
     user: res.locals.user.username,
     language: req.body.language,
-    body: loremIpsum({
+    body: "<code>"+loremIpsum({
     count: 2,                      // Number of words, sentences, or paragraphs to generate.
-    units: 'sentences' ,           // Generate words, sentences, or paragraphs.
-    sentenceLowerBound: 5 ,        // Minimum words per sentence.
-    sentenceUpperBound: 15 ,       // Maximum words per sentence.
-    format: 'plain' ,              // Plain text or html
-    random: Math.random ,          // A PRNG function. Uses Math.random by default
-    }),
+    units: 'sentences',           // Generate words, sentences, or paragraphs.
+    sentenceLowerBound: 5,        // Minimum words per sentence.
+    sentenceUpperBound: 15,       // Maximum words per sentence.
+    format: 'plain',              // Plain text or html
+    random: Math.random,         // A PRNG function. Uses Math.random by default
+    })+"</code>",
     date_created: moment()}
   )
 
@@ -144,30 +144,6 @@ app.post('/new/', function (req, res) {
     res.render('index', {errorMsg: errorMsg});
   })
 });
-
-app.get('/:user/', function (req, res) {
-  Snippet.find({user: req.params.user}).then(function (snippet) {
-    res.render("user", {snippet: snippet, user: req.params.user});
-  })
-})
-
-app.get('/', function(req, res) {
-  Snippet.find().then(function (snippet) {
-  res.render('index', {snippet: snippet});
-})
-});
-
-app.get('/login/', function(req, res) {
-    res.render("login", {
-        messages: res.locals.getMessages()
-    });
-});
-
-app.post('/login/', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login/',
-    failureFlash: true
-}))
 
 app.get('/register/', function(req, res) {
     res.render('register');
@@ -210,6 +186,34 @@ app.post('/register/', function(req, res) {
             })
         })
 });
+
+app.get('/login/', function(req, res) {
+    res.render("login", {
+        messages: res.locals.getMessages()
+    });
+});
+
+app.post('/login/', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login/',
+    failureFlash: true
+}))
+
+app.get('/:user/', function (req, res) {
+  Snippet.find({user: req.params.user}).then(function (snippet) {
+    res.render("user", {snippet: snippet, user: req.params.user});
+  })
+})
+
+app.get('/', function(req, res) {
+  Snippet.find().then(function (snippet) {
+  res.render('index', {snippet: snippet});
+})
+});
+
+
+
+
 
 function normalizeMongooseErrors(errors) {
     Object.keys(errors).forEach(function(key) {
