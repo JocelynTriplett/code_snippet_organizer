@@ -24,6 +24,7 @@ const mongoose = require('mongoose');
 const expressValidator = require('express-validator');
 const User = user_model.User;
 const Snippet = snippet_model.Snippet;
+const moment = require('moment');
 
 const app = express();
 
@@ -105,7 +106,8 @@ app.post('/new/', function (req, res) {
     {title: req.body.title,
     user: res.locals.user.username,
     language: req.body.language,
-    body: req.body.body,}
+    body: req.body.body,
+    date_created: moment()}
         )
 
   .then(function (snippet) {
