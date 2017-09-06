@@ -205,6 +205,12 @@ app.get('/:user/', function (req, res) {
   })
 })
 
+app.get('/language/:language/', function (req, res) {
+  Snippet.find({language: req.params.language}).then(function (snippet) {
+    res.render("language", {snippet: snippet, language: req.params.language});
+  })
+})
+
 app.get('/', function(req, res) {
   Snippet.find().then(function (snippet) {
   res.render('index', {snippet: snippet});
