@@ -1,62 +1,75 @@
 <!DOCTYPE html>
- <html lang="en">
+<html lang="en">
 
 <head>
-     <meta charset="UTF-8">
-     <title>TITLE</title>
-     <meta name="description" content="DESCRIPTION">
-    <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+  <meta charset="UTF-8">
+  <title>Snippets</title>
+  <meta name="description" content="DESCRIPTION">
+  <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+</head>
 
- </head>
+<body>
+  {{#user}}
+  <div class="hello">
+    <h2>Hello, {{ username }}</h2>
+  </div>
+{{/user}}
+  <header>
+    <div class="header_wrapper">
+      {{#user}}
+        <h5>
+         Would you like to:
+         <a href="/new/">ADD a SNIPPET, </a>
+         <a href="/user/{{username}}">MANAGE YOUR SNIPPETS, </a>  <a href="/logout/">or LOGOUT </a>?
+        </h5>
+      {{/user}}
+      {{^user}}
+      <h1>
+               You are not logged in.
+               <small><a href="/login/">Login</a> | <a href="/register/">Register</a></small>
+             </h1>
+      {{/user}}
+    </div>
+  </header>
 
- <body>
-   <div class="container" style="margin-top: 2rem">
-     <div class="row">
-       <div class="col">
-         {{#user}}
-           <h1>
-             You are logged in as {{ username }}.
-             <small><a href="/logout/">Logout</a></small>
-           </h1>
-           <p>
-     <a href="/new/">Add a new code snippet</a>
-   </p>
+  <div class="all_snippets_wrapper">
+    {{#user}}
+    <h5>ALL SNIPPETS:</h5>
+      {{#snippet}}
+        <div class="snippet_wrapper">
+          <h1>{{title}}</h1>
+          <ul>
+            <li>language: <a href="/language/{{language}}">{{language}}</a></li>
+            <li>by: <a href="/user/{{user}}">{{user}}</a>
+            </li>
+            <div class="snippet_body_wrapper">
+              <li>{{body}}</li>
+            </div>
 
-   {{#snippet}}
-   <div class="snippet_wrapper">
-   <h1>{{title}}</h1>
-   <ul>
-     <li><a href="/language/{{language}}">{{language}}</a></li>
-     <li><a href="/{{user}}">{{user}}</a>
-     </li>
-     <li>{{body}}</li>
-     <li>{{date_created}}</li>
-     <li>{{date_modified}}</li>
-     <li>{{notes}}</li>
-     <li>{{tags}}</li>
-   </ul>
-   </div>
-   {{/snippet}}
-   {{^snippet}}
-   <p>
-     Showing because there are NO snippets.
-   </p>
-   {{/snippet}}
+            <li>date created: {{date_created}}</li>
+            <li>date last modified: {{date_modified}}</li>
+            <li>notes: {{notes}}</li>
+            <li>filed under: {{tags}}</li>
+          </ul>
+        </div>
+      {{/snippet}}
+    {{/user}}
+  </div>
 
-         {{/user}}
-         {{^user}}
-         <h1>
-           You are not logged in.
-           <small><a href="/login/">Login</a> | <a href="/register/">Register</a></small>
-         </h1>
-         {{/user}}
-         <p class="lead">
-           <a href="/secret/">Go to secret page.</a>
-         </p>
-       </div>
-     </div>
-   </div>
 
- </body>
+  {{^snippet}}
+  <p>
+    Showing because there are NO snippets.
+  </p>
+  {{/snippet}}
 
- </html>
+
+
+  <p class="lead">
+    <a href="/secret/">Go to secret page.</a>
+  </p>
+
+
+</body>
+
+</html>

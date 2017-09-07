@@ -202,7 +202,7 @@ app.post('/login/', passport.authenticate('local', {
     failureFlash: true
 }))
 
-app.get('/:user/', function (req, res) {
+app.get('/user/:user/', function (req, res) {
   Snippet.find({user: req.params.user}).then(function (snippet) {
     res.render("user", {snippet: snippet, user: req.params.user});
   })

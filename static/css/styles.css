@@ -1,0 +1,61 @@
+/*colors
+
+navy: #002B4E
+gray: #808080
+burgundy: #6F0029
+gold: #DEB66D
+light gray: #DCDCDC
+light blue: #80A5E4
+*/
+
+body {
+  background-color: #002B4E;
+  color: white;
+}
+.hello {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.hello h2 {
+  padding-right: 20px;
+}
+
+header {
+  background-color: #80A5E4;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.all_snippets_wrapper {
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  align-items: center;
+
+}
+.snippet_wrapper {
+  border: solid 2px #6F0029;
+  border-radius: 10px;
+  color: #002B4E;
+  background-color: #DCDCDC;
+  margin: 10px;
+  width: 75vw;
+}
+
+.snippet_wrapper h1 {
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.snippet_wrapper li {
+  list-style: none;
+}
+
+.snippet_body_wrapper {
+  background-color: white;
+  padding: 20px;
+  margin-right: 40px;
+  border-radius: 5px;
+}
