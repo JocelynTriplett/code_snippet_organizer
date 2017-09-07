@@ -33,8 +33,14 @@ header {
   align-self: center;
   flex-direction: column;
   align-items: center;
-
 }
+
+.all_snippets_wrapper h5 {
+  width: 80vw;
+  text-align: left;
+  margin-top: 15px;
+}
+
 .snippet_wrapper {
   border: solid 2px #6F0029;
   border-radius: 10px;

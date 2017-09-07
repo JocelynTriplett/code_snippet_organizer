@@ -101,7 +101,8 @@ app.get('/new/', function (req, res) {
 });
 
 app.post('/new/', function (req, res) {
-  //console.log(req.body.tags)
+  let tags = req.body.tags.replace(/\s/g,'');
+  console.log(tags);
 
   Snippet.create(
     {title: req.body.title,
@@ -117,7 +118,7 @@ app.post('/new/', function (req, res) {
     })+"</code>",
     date_created: moment(),
     notes: req.body.notes,
-    tags: req.body.tags.split(',')
+    tags: tags.split(',')
     }
   )
 
