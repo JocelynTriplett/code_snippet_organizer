@@ -34,22 +34,22 @@
 
   <div class="all_snippets_wrapper">
     {{#user}}
-    <h5>ALL SNIPPETS:</h5>
+    <h5>All Snippets{{#tag}} with tag {{tag}}{{/tag}}{{#language}} written in {{language}}{{/language}}{{#contributor}} created by {{contributor}}{{/contributor}}:</h5>
       {{#snippet}}
         <div class="snippet_wrapper">
           <h1><a href="/snippet/{{_id}}">{{title}}</a></h1>
           <ul>
-            <li>language: <a href="/language/{{language}}">{{language}}</a></li>
-            <li>by: <a href="/user/{{user}}">{{user}}</a>
+            <li><strong>language: </strong><a href="/language/{{language}}">{{language}}</a></li>
+            <li><strong>by: </strong><a href="/user/{{user}}">{{user}}</a>
             </li>
             <div class="snippet_body_wrapper">
               <li>{{body}}</li>
             </div>
 
-            <li>date created: {{date_created}}</li>
-            <li>date last modified: {{date_modified}}</li>
-            <li>notes: {{notes}}</li>
-            <li>filed under: {{#tags}}<a href="/tag/{{.}}"> {{.}}{{/tags}} </a></li>
+            <li><strong>date created: </strong>{{date_created}}</li>
+            <li><strong>date last modified: </strong>{{date_modified}}</li>
+            <li><strong>notes: </strong>{{notes}}</li>
+            <li><strong>filed under: </strong>{{#tags}}<a href="/tag/{{.}}"> {{.}}{{/tags}} </a></li>
           </ul>
         </div>
       {{/snippet}}

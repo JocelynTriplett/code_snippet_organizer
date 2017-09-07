@@ -117,6 +117,7 @@ app.post('/new/', function (req, res) {
     random: Math.random,         // A PRNG function. Uses Math.random by default
     })+"</code>",
     date_created: moment().calendar(),
+    date_modified: moment().calendar(),
     notes: req.body.notes,
     tags: tags.split(',')
     }
@@ -204,8 +205,14 @@ app.post('/login/', passport.authenticate('local', {
 }))
 
 app.get('/user/:user/', function (req, res) {
+  if (res.locals.user.username === req.params.user) {
+    Snippet.find({user: req.params.user}).then(function (snippet) {
+      res.render("dashboard", {snippet: snippet, contributor: req.params.user});
+    })
+  }
+  else
   Snippet.find({user: req.params.user}).then(function (snippet) {
-    res.render("user", {snippet: snippet, user: req.params.user});
+    res.render("index", {snippet: snippet, contributor: req.params.user});
   })
 })
 
@@ -217,7 +224,7 @@ app.get('/language/:language/', function (req, res) {
 
 app.get('/tag/:tag/', function (req, res) {
   Snippet.find({tags: req.params.tag}).then(function (snippet) {
-    res.render("tag", {snippet: snippet, tag: req.params.tag});
+    res.render("index", {snippet: snippet, tag: req.params.tag});
   })
 })
 
