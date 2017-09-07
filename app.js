@@ -116,7 +116,7 @@ app.post('/new/', function (req, res) {
     format: 'plain',              // Plain text or html
     random: Math.random,         // A PRNG function. Uses Math.random by default
     })+"</code>",
-    date_created: moment(),
+    date_created: moment().calendar(),
     notes: req.body.notes,
     tags: tags.split(',')
     }
