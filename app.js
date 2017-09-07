@@ -108,7 +108,7 @@ app.post('/new/', function (req, res) {
     {title: req.body.title,
     user: res.locals.user.username,
     language: req.body.language,
-    body: "<code>"+loremIpsum({
+    body: req.body.body || "<code>"+loremIpsum({
     count: 2,                      // Number of words, sentences, or paragraphs to generate.
     units: 'sentences',           // Generate words, sentences, or paragraphs.
     sentenceLowerBound: 5,        // Minimum words per sentence.
@@ -228,7 +228,7 @@ app.get('/snippet/:id/', function (req, res) {
 })
 
 app.get('/', function(req, res) {
-  Snippet.find().then(function (snippet) {
+  Snippet.find().sort({date_created: -1}).then(function (snippet) {
   res.render('index', {snippet: snippet});
 })
 });
