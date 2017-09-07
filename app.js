@@ -221,6 +221,12 @@ app.get('/tag/:tag/', function (req, res) {
   })
 })
 
+app.get('/snippet/:id/', function (req, res) {
+  Snippet.find({_id: req.params.id}).then(function (snippet) {
+    res.render("snippet", {snippet: snippet});
+  })
+})
+
 app.get('/', function(req, res) {
   Snippet.find().then(function (snippet) {
   res.render('index', {snippet: snippet});

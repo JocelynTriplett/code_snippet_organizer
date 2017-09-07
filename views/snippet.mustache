@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Snippets</title>
+  <meta name="description" content="DESCRIPTION">
+  <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+</head>
+
+<body>
+  <header>
+  </header>
+      {{#snippet}}
+        <div class="snippet_wrapper">
+          <h1>{{title}}</h1>
+          <ul>
+            <li>language: <a href="/language/{{language}}">{{language}}</a></li>
+            <li>by: <a href="/user/{{user}}">{{user}}</a>
+            </li>
+            <div class="snippet_body_wrapper">
+              <li>{{body}}</li>
+            </div>
+
+            <li>date created: {{date_created}}</li>
+            <li>date last modified: {{date_modified}}</li>
+            <li>notes: {{notes}}</li>
+            <li>filed under: {{#tags}}<a href="/tag/{{.}}"> {{.}}{{/tags}} </a></li>
+          </ul>
+        </div>
+      {{/snippet}}
+
+</body>
+
+</html>
