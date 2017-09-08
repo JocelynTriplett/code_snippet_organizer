@@ -217,6 +217,7 @@ app.get('/user/:user/', function (req, res) {
 })
 
 app.post('/user/:user', function(req,res){
+
   if (req.body.delete){
   var snippetToDelete = {"_id": req.body.snippet_id};
   console.log("snippetToDelete: "+snippetToDelete.title);
@@ -225,7 +226,7 @@ app.post('/user/:user', function(req,res){
      console.log(obj.result.n + " snippet(s) deleted");
     //  db.close();
     Snippet.find().then(function (snippet) {
-      res.redirect('/user/:user');
+      res.redirect('/user/'+res.locals.user.username);
     })
 })}
   else {
