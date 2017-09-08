@@ -230,11 +230,8 @@ app.post('/user/:user', function(req,res){
     })
 })}
   else {
-    Snippet.find({"_id": req.body.book_id}).then(function(snippet){
-      res.render('/:_id/edit/', {snippet: snippet})
-    })
-  }
-})
+    res.redirect('/snippet/'+req.body.snippet_id+'/edit/')
+}})
 
 app.get('/language/:language/', function (req, res) {
   Snippet.find({language: req.params.language}).then(function (snippet) {
@@ -251,6 +248,12 @@ app.get('/tag/:tag/', function (req, res) {
 app.get('/snippet/:id/', function (req, res) {
   Snippet.find({_id: req.params.id}).then(function (snippet) {
     res.render("snippet", {snippet: snippet});
+  })
+})
+
+app.get('/snippet/:id/edit/', function (req, res) {
+  Snippet.find({_id: req.params.id}).then(function (snippet) {
+    res.render("edit_snippet", {snippet: snippet});
   })
 })
 
