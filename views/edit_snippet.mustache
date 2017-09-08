@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <title>Snippets</title>
   <meta name="description" content="DESCRIPTION">
-  <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/new_snippet.css">
 </head>
 
 <body>
@@ -15,20 +15,34 @@
   <div class="all_snippets_wrapper">
       {{#snippet}}
         <div class="snippet_wrapper">
-          <h1>{{title}}</h1>
-          <ul>
-            <li>language: <a href="/language/{{language}}">{{language}}</a></li>
-            <li>by: <a href="/user/{{user}}">{{user}}</a>
-            </li>
-            <div class="snippet_body_wrapper">
-              <li>{{body}}</li>
-            </div>
+          <form action="/snippet/{{_id}}/edit/" method="POST">
+            <p>
+              <label for="title">Title:</label>
+              <input type="text" id="title" name="title" placeholder:"{{title}}" required />
+            </p>
 
-            <li>date created: {{date_created}}</li>
-            <li>date last modified: {{date_modified}}</li>
-            <li>notes: {{notes}}</li>
-            <li>filed under: {{#tags}}<a href="/tag/{{.}}"> {{.}}{{/tags}} </a></li>
-          </ul>
+            <label for="language">Language: </label>
+            <select name="language" id="language" placeholder:"{{language}}">
+            <option value="Javascript">Javascript</option>
+            <option value="Java">Java</option>
+            <option value="Ruby">Ruby</option>
+            <option value="HTML">HTML</option>
+            <option value="JSON">JSON</option>
+            <option value="CSS">CSS</option>
+            <option value="text">text</option>
+          </select>
+
+            <label for="body">Code: </label>
+            <input type="textarea" name="body" id="body" placeholder="{{body}}" />
+          <label>Date Created: {{date_created}}</label>
+            <label for="notes">Notes: </label>
+            <input type="textarea" name="notes" id="notes" placeholder="{{notes}}"/>
+
+            <label for="tags">Tags: </label>
+            <input type="text" name="tags" id="tags" placeholder="{{tags}}"/>
+            <input type="submit" value="submit" name="submit" />
+
+          </form>
         </div>
       {{/snippet}}
 </div>
