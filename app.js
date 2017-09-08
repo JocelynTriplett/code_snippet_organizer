@@ -216,6 +216,25 @@ app.get('/user/:user/', function (req, res) {
   })
 })
 
+app.post('/user/:user', function(req,res){
+  if (req.body.delete){
+  var snippetToDelete = {"_id": req.body.snippet_id};
+  console.log("snippetToDelete: "+snippetToDelete.title);
+   Snippet.deleteOne(snippetToDelete, function(err, obj) {
+     if (err) throw err;
+     console.log(obj.result.n + " snippet(s) deleted");
+    //  db.close();
+    Snippet.find().then(function (snippet) {
+      res.redirect('/user/:user');
+    })
+})}
+  else {
+    Snippet.find({"_id": req.body.book_id}).then(function(snippet){
+      res.render('/:_id/edit/', {snippet: snippet})
+    })
+  }
+})
+
 app.get('/language/:language/', function (req, res) {
   Snippet.find({language: req.params.language}).then(function (snippet) {
     res.render("language", {snippet: snippet, language: req.params.language});
@@ -239,6 +258,8 @@ app.get('/', function(req, res) {
   res.render('index', {snippet: snippet});
 })
 });
+
+
 
 
 

@@ -1,19 +1,83 @@
- <!DOCTYPE html>
- <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-     <meta charset="UTF-8">
-     <title>TITLE</title>
-     <meta name="description" content="DESCRIPTION">
-    <link rel="stylesheet" href="PATH">
+  <meta charset="UTF-8">
+  <title>Snippets</title>
+  <meta name="description" content="DESCRIPTION">
+  <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+</head>
 
-     <!--[if lt IE 9]>
-       <script src = "http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-     <![endif]-->
- </head>
+<body>
+  {{#user}}
+  <div class="hello">
+    <h2>Hello, {{ username }}</h2>
+  </div>
+{{/user}}
+  <header>
+    <div class="header_wrapper">
+      {{#user}}
+        <h5>
+         Would you like to:
+         <a href="/new/">ADD a SNIPPET, </a>
+         <a href="/user/{{username}}">MANAGE YOUR SNIPPETS, </a>  <a href="/logout/">or LOGOUT </a>?
+        </h5>
+      {{/user}}
+      {{^user}}
+      <h1>
+               You are not logged in.
+               <small><a href="/login/">Login</a> | <a href="/register/">Register</a></small>
+             </h1>
+      {{/user}}
+    </div>
+  </header>
 
- <body>
-  <h1> This is the user dashboard!</h1>
- </body>
+  <div class="all_snippets_wrapper">
+    {{#user}}
+    <h5>All Snippets{{#tag}} with tag {{tag}}{{/tag}}{{#language}} written in {{language}}{{/language}}{{#contributor}} created by {{contributor}}{{/contributor}}:</h5>
+      {{#snippet}}
+        <div class="snippet_wrapper">
+          <h1><a href="/snippet/{{_id}}">{{title}}</a></h1>
+          <ul>
+            <li><strong>language: </strong><a href="/language/{{language}}">{{language}}</a></li>
+            <li><strong>by: </strong><a href="/user/{{user}}">{{user}}</a>
+            </li>
+            <div class="snippet_body_wrapper">
+              <li>{{body}}</li>
+            </div>
 
- </html>
+            <li><strong>date created: </strong>{{date_created}}</li>
+            <li><strong>date last modified: </strong>{{date_modified}}</li>
+            <li><strong>notes: </strong>{{notes}}</li>
+            <li><strong>filed under: </strong>{{#tags}}<a href="/tag/{{.}}"> {{.}}{{/tags}} </a></li>
+          </ul>
+          <form action="/user/:user" method="POST">
+            <input type="text" name="snippet_id" value="{{_id}}" hidden />
+            <button type="submit" name="edit" value="Edit Record" id="edit" class="button button-danger" >Edit Record</button>
+          </form>
+          <form action="/user/:user" method="POST">
+            <input type="text" name="snippet_id" value="{{_id}}" hidden />
+            <button type="submit" name="delete" value="Delete Record" id="delete" class="button button-danger" >Delete Record</button>
+          </form>
+        </div>
+      {{/snippet}}
+    {{/user}}
+  </div>
+
+
+  {{^snippet}}
+  <p>
+    Showing because there are NO snippets.
+  </p>
+  {{/snippet}}
+
+
+
+  <p class="lead">
+    <a href="/secret/">Go to secret page.</a>
+  </p>
+
+
+</body>
+
+</html>
